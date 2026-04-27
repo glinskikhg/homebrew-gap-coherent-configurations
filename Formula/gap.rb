@@ -24,6 +24,16 @@ class Gap < Formula
   depends_on "singular" # many packages
   depends_on "zeromq"   # ZeroMQInterface
 
+  # External packages from github.
+  resource "coco2p" do
+    url "https://github.com/chpech/COCO2P.git", using: :git, revision: "master"
+  end
+  resource "assoc" do
+    url "https://github.com/jesselansdown/AssociationSchemes.git", using: :git, revision: "master"
+  end
+  resource "grap" do
+    url "https://github.com/gap-packages/grape.git", using: :git, revision: "master"
+  end
 
   def install
     system "./configure", *std_configure_args
@@ -40,6 +50,18 @@ class Gap < Formula
       # error messages, possibly failing to build several packages.
       system buildpath/"bin/BuildPackages.sh", "--with-gaproot=#{lib}/gap"
     end
+
+    ohai "Copying new packages to lib/gap/pkg"
+    resource("coco2p").stage do
+      system "cp", "-R", ".", "#{lib}/gap/pkg/COCO2P"
+    end
+    resource("assoc").stage do
+      system "cp", "-R", ".", "#{lib}/gap/pkg/AssociationSchemes"
+    end
+    resource("grap").stage do
+      system "cp", "-R", ".", "#{lib}/gap/pkg/grape"
+    end
+
   end
 
   test do
