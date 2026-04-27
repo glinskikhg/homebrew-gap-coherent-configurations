@@ -51,6 +51,7 @@ class Gap < Formula
       system buildpath/"bin/BuildPackages.sh", "--with-gaproot=#{lib}/gap"
     end
 
+    ohai "Copying new packages to lib/gap/pkg"
     resource("coco2p").stage do
       system "cp", "-R", ".", "#{lib}/gap/pkg/COCO2P"
     end
