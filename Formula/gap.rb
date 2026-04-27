@@ -52,13 +52,13 @@ class Gap < Formula
     end
 
     resource("coco2p").stage do
-      cp_r ".", lib/"gap/pkg"
+      system "cp", "-R", ".", "#{lib}/gap/pkg/COCO2P"
     end
     resource("assoc").stage do
-      cp_r ".", lib/"gap/pkg"
+      system "cp", "-R", ".", "#{lib}/gap/pkg/AssociationSchemes"
     end
     resource("grap").stage do
-      cp_r ".", lib/"gap/pkg"
+      system "cp", "-R", ".", "#{lib}/gap/pkg/grape"
     end
 
   end
